@@ -1,0 +1,19 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+transformers = "*"
+qdrant-client = "*"
+pillow = "*"
+torch = "*"
+streamlit = "*"
+
+[dev-packages]
+jupyter = "*"
+pre-commit = "*"
+matplotlib = "*"
+
+[requires]
+python_version = "3.6"
