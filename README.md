@@ -24,4 +24,12 @@ Label distribution and some examples can be viewed at the notebook `analyze_data
 
 ## Usage
 
+```
+docker run -p 6333:6333 qdrant/qdrant:latest
+python create_collection.py
+# TODO
+```
+
+## Query evaluation
+
 TODO
