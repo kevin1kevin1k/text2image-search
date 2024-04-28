@@ -3,7 +3,7 @@ from qdrant_client import QdrantClient
 from qdrant_client.models import Distance, VectorParams
 from torch.utils.data import DataLoader
 
-from constants import CLIENT_URL, COLLECTION_NAME
+from constants import CLIENT_URL, COLLECTION_NAME, IMAGES_PATH
 from models import PROJECTION_DIM, model, processor
 from utils import ImagePayloadDataset
 
@@ -41,5 +41,5 @@ def create_and_upload_collection(folder_path: str):
 
 if __name__ == "__main__":
     print("Creating and uploading collection...")
-    create_and_upload_collection(folder_path="./open_images/00000/")
+    create_and_upload_collection(folder_path=IMAGES_PATH)
     print("Done!")

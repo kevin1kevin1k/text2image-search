@@ -43,7 +43,13 @@ python create_collection.py
 
 ### Start the service
 
-TODO
+Continue from the previous shell and run the following.
+A browser window will open with the app.
+If not, open http://localhost:8501/ in a browser or follow the link in the terminal.
+
+```
+streamlit run serve.py
+```
 
 ## Query evaluation
 

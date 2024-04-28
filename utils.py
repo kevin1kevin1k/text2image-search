@@ -2,16 +2,8 @@ import json
 from pathlib import Path
 from typing import Any, Dict
 
-from PIL import Image
 from torch.utils.data import Dataset
 from torchvision.io import read_image
-
-
-def load_image(path):
-    image_f = Image.open(path)
-    image = image_f.copy()
-    image_f.close()
-    return image
 
 
 class ImagePayloadDataset(Dataset):
