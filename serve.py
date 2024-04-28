@@ -64,7 +64,7 @@ def run_app():
                 cols[i % n_cols].image(image)
                 cols[i % n_cols].caption(
                     f"""
-                    <div style="background-color: #f0f0f0; padding: 10px; border-radius: 5px;">
+                    <div style="background-color: {st.get_option('theme.primaryColor')}; color: {st.get_option('theme.textColor')}; padding: 10px; border-radius: 5px;">
                         <h3 style="margin-top: 0; margin-bottom: 10px;">Score: {score:.2f}</h3>
                         <p><strong>Image Labels:</strong> {', '.join(image_labels)}</p>
                         <p><strong>Bounding Box Labels:</strong> {', '.join(bbox_labels)}</p>
