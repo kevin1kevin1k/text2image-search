@@ -4,6 +4,9 @@ from typing import Any, Dict
 
 from torch.utils.data import Dataset
 from torchvision.io import read_image
+from torchvision.transforms.functional import to_pil_image
+
+from constants import IMAGES_PATH
 
 
 class ImagePayloadDataset(Dataset):
@@ -40,3 +43,15 @@ def load_json_dict(file_path: str) -> Dict[str, Any]:
         return {}
     with open(file_path, "r") as f:
         return json.load(f)
+
+
+def _transform_json_list(json_list: str):
+    return json.loads(json_list.replace("'", '"'))
+
+
+def load_image_and_payload(file_stem):
+    image = to_pil_image(read_image(f"{IMAGES_PATH}/{file_stem}.jpg"))
+    payload = load_json_dict(f"{IMAGES_PATH}/{file_stem}.json")
+    payload["image_labels"] = _transform_json_list(payload["image_labels"])
+    payload["bbox_labels"] = _transform_json_list(payload["bbox_labels"])
+    return image, payload
