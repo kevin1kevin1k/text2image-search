@@ -36,13 +36,24 @@ def _transform_json_list(json_list: str):
     return json.loads(json_list.replace("'", '"'))
 
 
+def _generate_caption(score, payload):
+    image_labels = _transform_json_list(payload["image_labels"])
+    bbox_labels = _transform_json_list(payload["bbox_labels"])
+    return f"""
+        <div style="background-color: {st.get_option('theme.primaryColor')}; color: {st.get_option('theme.textColor')}; padding: 10px; border-radius: 5px;">
+        <h3 style="margin-top: 0; margin-bottom: 10px;">Score: {score:.2f}</h3>
+        <p><strong>Image Labels:</strong> {', '.join(image_labels)}</p>
+        <p><strong>Bounding Box Labels:</strong> {', '.join(bbox_labels)}</p>
+        </div>
+    """
+
+
 def run_app():
     qdrant_client = QdrantClient(CLIENT_URL)
 
-    st.title("Neural Image Semantic Search")
-    st.write("Search for images using natural language.")
+    st.title("Text-to-Image Search")
+    st.write("Search for semantically similar images with natural language.")
 
-    query = st.text_input("Enter your image search query:")
     score_threshold = st.slider(
         "Similarity score threshold: ",
         min_value=0.0,
@@ -50,8 +61,11 @@ def run_app():
         value=0.1,
         step=0.1,
     )
+    query = st.text_input("Search query:")
 
-    if st.button("Search"):
+    prev_query = ""
+    if st.button("Search") or query != prev_query:
+        prev_query = query
         if query:
             results = search_images(qdrant_client, query, score_threshold)
             st.subheader("Results:")
@@ -59,17 +73,9 @@ def run_app():
             cols = st.columns(n_cols)
             for i, (file_stem, score) in enumerate(results):
                 image, payload = _load_image_and_payload(file_stem)
-                image_labels = _transform_json_list(payload["image_labels"])
-                bbox_labels = _transform_json_list(payload["bbox_labels"])
                 cols[i % n_cols].image(image)
                 cols[i % n_cols].caption(
-                    f"""
-                    <div style="background-color: {st.get_option('theme.primaryColor')}; color: {st.get_option('theme.textColor')}; padding: 10px; border-radius: 5px;">
-                        <h3 style="margin-top: 0; margin-bottom: 10px;">Score: {score:.2f}</h3>
-                        <p><strong>Image Labels:</strong> {', '.join(image_labels)}</p>
-                        <p><strong>Bounding Box Labels:</strong> {', '.join(bbox_labels)}</p>
-                    </div>
-                    """,
+                    _generate_caption(score, payload),
                     unsafe_allow_html=True,
                 )
         else:
