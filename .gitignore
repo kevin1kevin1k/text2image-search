@@ -1,4 +1,6 @@
 .ipynb_checkpoints/
 qdrant_storage/
 *.csv
-
+.vscode/
+.python-version
+open_images/
