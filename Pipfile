@@ -6,8 +6,8 @@ name = "pypi"
 [packages]
 transformers = "*"
 qdrant-client = "*"
-pillow = "*"
 torch = "*"
+torchvision = "*"
 streamlit = "*"
 
 [dev-packages]

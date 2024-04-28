@@ -24,11 +24,26 @@ Label distribution and some examples can be viewed at the notebook `analyze_data
 
 ## Usage
 
+### Launch qdrant docker in one tab
+
 ```
-docker run -p 6333:6333 qdrant/qdrant:latest
+docker run -p 6333:6333 \
+    -v $(pwd)/qdrant_storage:/qdrant/storage \
+    qdrant/qdrant
+```
+
+### In another tab, create a collection and upload vectors
+
+Note that this may take a while.
+
+```
+pipenv shell
 python create_collection.py
-# TODO
 ```
+
+### Start the service
+
+TODO
 
 ## Query evaluation
 
