@@ -46,7 +46,7 @@ def load_json_dict(file_path: str) -> Dict[str, Any]:
 
 
 def _transform_json_list(json_list: str):
-    return json.loads(json_list.replace("'", '"'))
+    return json_list.replace('"', "").replace("'", "").strip("[]").split(", ")
 
 
 def load_image_and_payload(file_stem):
