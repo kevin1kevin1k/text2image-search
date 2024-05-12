@@ -24,6 +24,20 @@ Label distribution and some examples can be viewed at the notebook `analyze_data
 
 ## Usage
 
+### System architecture
+
+```mermaid
+graph LR
+    ImagesSource[Images from Internet] -->|prepare_images.sh| Images[Local images]
+    Images --> analyze_dataset.ipynb
+    Images -->|create_collection.py| Qdrant
+    Qdrant[(Qdrant Server)] -->|serve.py| Streamlit[Streamlit Server]
+    Qdrant --> evaluation.ipynb
+    subgraph Docker
+        Qdrant
+    end
+```
+
 ### Launch qdrant docker in one tab
 
 ```
