@@ -51,6 +51,11 @@ If not, open http://localhost:8501/ in a browser or follow the link in the termi
 streamlit run serve.py
 ```
 
+Now one can search images with arbitrary queries.
+The similarity score threshold can be adjusted; note that higher thresholds may lead to fewer results.
+The resulting images are accompanied with corresponding similarity scores, as well as the labels from the dataset.
+The labels are only for reference, and are not used in the search process.
+
 ## Query evaluation
 
-TODO
+The evaluations can be viewed at the notebook `evaluation.ipynb`.
