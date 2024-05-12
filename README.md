@@ -58,4 +58,23 @@ The labels are only for reference, and are not used in the search process.
 
 ## Query evaluation
 
-The evaluations can be viewed at the notebook `evaluation.ipynb`.
+### Qualitative evaluation
+
+The evaluations with various examples can be viewed at the notebook `evaluation.ipynb`.
+
+### Quantitative evaluation
+
+- Data preparation
+    - Select a set of representative queries from the dataset label space and manually annotate relevant images for each query. This set will serve as the test/evaluation queries. Instead of manual annotation, relevant images could potentially be determined automatically based on some heuristics or another pre-trained model.
+    - The queries should be diverse enough to cover different parts of the label space. A balanced set of queries will make the evaluation more robust and generalizable.
+- Evaluation metric
+    - Since the task is about retrieval of relevant images, Recall@K should be a standard evaluation metric for this task. If one also cares about the precision, F1 score can also be measured to balance precision and recall.
+    - In addition, if the ranking order is important, Mean Reciprocal Rank (MRR) or Normalized Discounted Cumulative Gain (NDCG) can be used to evaluate how well the truly relevant images are ranked at the top.
+
+
+## Challenges and potential improvements
+
+- The current dataset size is relatively small (~10k images). With a larger and more diverse dataset, the result is expected to be better.
+- The current image and text embeddings are from a pre-trained CLIP model. Fine-tuning the model on the target dataset may improve the quality of embeddings and hence the retrieval accuracy.
+- Some parameters are chosen arbitrarily, such as the distance measure (cosine) and the image cropping size (256). Altering these values may also lead to different results.
+- The current codebase is not modular and lacks abstraction. Refactoring it into reusable modules/classes and adding unit tests would make it more maintainable and extensible.
